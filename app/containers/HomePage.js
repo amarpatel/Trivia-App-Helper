@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { shell } from 'electron';
 import GameForm from '../components/GameForm';
-import Author from '../components/Author';
+import Author from '../components/Footer';
 import ScreenshotPreview from './ScreenshotPreview';
 
 export default class HomePage extends Component {

@@ -15,13 +15,14 @@ const styles = theme => ({
   button: {
     margin: 0,
     minWidth: 0,
-    padding: 0,
+    padding: '0 16px',
     minHeight: '24px',
   },
   icon: {
     height: '16px',
     fill: 'rgba(0, 0, 0, 0.54)',
     position: 'relative',
+    top: '3px'
   }
 });
 

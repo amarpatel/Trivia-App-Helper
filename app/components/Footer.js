@@ -5,11 +5,12 @@ import Button from 'material-ui/Button';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import ChatBubbleOutlineIcon from 'material-ui-icons/ChatBubbleOutline';
+import Info from './Info';
 
 const styles = theme => ({
   root: {
     position: 'absolute',
-    bottom: '16px',
+    bottom: '8px',
     width: '100%',
     textAlign: 'center',
   },
@@ -21,20 +22,27 @@ const styles = theme => ({
   },
   button: {
     textTransform: 'unset',
+  },
+  gridContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
   }
 });
 
-export function Author(props) {
+export function Footer(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <Grid container justify="center">
+      <Grid container justify="center" className={classes.gridContainer}>
+        <Grid item>
+          <Info />
+        </Grid>
         <Grid item>
           <Button href="#flat-buttons" className={classes.button} onClick={() => props.handleOnAuthorClick()}>
-            <Typography variant="caption" gutterBottom>
-                by Amar
-            </Typography>
             <ChatBubbleOutlineIcon className={classes.icon} />
+            <Typography variant="caption" gutterBottom>
+              Amar
+            </Typography>
           </Button>
         </Grid>
       </Grid>
@@ -42,4 +50,4 @@ export function Author(props) {
   );
 }
 
-export default withStyles(styles)(Author);
+export default withStyles(styles)(Footer);

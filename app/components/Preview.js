@@ -1,28 +1,19 @@
 import React, { Component } from 'react';
 
 import Card, { CardContent } from 'material-ui/Card';
+import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles/index';
 import AccessAlarmIcon from 'material-ui-icons/AccessAlarm';
-import Info from './Info';
 
 const styles = theme => ({
   card: {
     minWidth: 275,
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
   title: {
     marginBottom: 16,
     fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
   },
   root: {
     width: '100%',
@@ -54,9 +45,6 @@ const styles = theme => ({
   question: {
     textAlign: 'center',
     padding: '0 0 8px 0',
-  },
-
-  table: {
   },
 });
 
@@ -107,7 +95,6 @@ export function Preview(props) {
               <AccessAlarmIcon className={classes.icon} />
               {(props.timing / 1000).toFixed(2)}s
             </Typography>
-            <Info />
           </CardContent>
         </Card>
       </Grid>
