@@ -54,9 +54,8 @@ export class ScreenshotPreview extends Component {
           const { question, answers } = this.formatOCRData(data, this.props.game);
           this.setState({ question });
 
-          console.log('this.props.shouldOpenChrome: ', this.props.shouldOpenChrome);
           if (this.props.shouldOpenChrome) {
-            shell.openExternal(`https://www.google.com/search?q=${encodeURIComponent(question)}`);
+            shell.openExternal(`https://www.google.com/search?q=${encodeURIComponent(question)}`, { activate: false });
           }
 
           this.bingSearch(question, 100)
@@ -104,6 +103,7 @@ export class ScreenshotPreview extends Component {
     });
 
     const results = {};
+    let highestScoringAnswer = { totalScore: Number.MIN_SAFE_INTEGER };
 
     for (const answer of answersObj) {
       let commonWordScore = 0;
@@ -123,15 +123,20 @@ export class ScreenshotPreview extends Component {
         uncommonWordScore,
         totalScore: commonWordScore + uncommonWordScore
       };
+
+      if (highestScoringAnswer.totalScore < results[answer].totalScore) {
+        highestScoringAnswer = results[answer];
+      }
     }
 
-    return Object.entries(results).sort((a, b) => b[1].totalScore - a[1].totalScore);
+    highestScoringAnswer.selected = true;
+
+    return Object.entries(results);
 
     function sanitizeWords(word) {
       return word
         .replace(/( |(\w\W))$/, '')
         .replace(/\W/g, '');
-      // return word.replace(/[^A-Za-z0-9 ]/g, '');
     }
   }
 
