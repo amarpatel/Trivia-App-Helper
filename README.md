@@ -12,7 +12,6 @@
 - Searches for questions
 - Counts frequency of answers in results
 - Gives educated guess on answer
-- Averages 2 seconds for results
 - Takes ~2 seconds with ~80% accuracy
 
 ## Requirements
