@@ -59,11 +59,11 @@ export class ScreenshotPreview extends Component {
             shell.openExternal(`https://www.google.com/search?q=${encodeURIComponent(question)}`);
           }
 
-          this.bingSearch(question, 50)
+          this.bingSearch(question, 100)
             .then((json) => this.analyzeWords(json, answers))
             .then((answers) => {
               this.setState({ answers, timing: Math.floor((new Date() * 1 - start)) });
-              console.log('Bing finished in: ', (bingTime = new Date() * 1) - OCRtime);
+              console.log('Bing finished in: ', (new Date() * 1) - OCRtime);
             });
         });
     });
@@ -78,23 +78,27 @@ export class ScreenshotPreview extends Component {
   analyzeWords(json, answersObj) {
     const answerWordSet = new Set();
     for (const answer of answersObj) {
-      sanitizeWords(answer).split(' ').forEach((v) => {
-        answerWordSet.add(v.toLowerCase());
+      answer.toLowerCase().split(' ').forEach((w) => {
+        const word = sanitizeWords(w);
+        answerWordSet.add(word);
       });
     }
 
     const wordsHash = {};
-    const snippits = json.webPages.value.map((v) => v.snippet);
-    const UNCOMMON_FACTOR = 10;
+    const text = json.webPages.value.reduce((acc, { snippet, name }) => {
+      acc.push(snippet, name);
+      return acc;
+    }, []);
 
-    snippits.forEach((response) => {
-      response.split(' ').forEach((word) => {
-        const lcWord = sanitizeWords(word).toLowerCase();
-        if (answerWordSet.has(lcWord)) {
-          if (!wordsHash[lcWord]) {
-            wordsHash[lcWord] = 0;
+    const UNCOMMON_FACTOR = 20;
+    text.forEach((response) => {
+      response.toLowerCase().split(' ').forEach((w) => {
+        const word = sanitizeWords(w);
+        if (answerWordSet.has(word) && word.length) {
+          if (!wordsHash[word]) {
+            wordsHash[word] = 0;
           }
-          wordsHash[lcWord] += COMMON_WORDS.has(lcWord) ? 1 : UNCOMMON_FACTOR;
+          wordsHash[word] += COMMON_WORDS.has(word) ? 1 : UNCOMMON_FACTOR;
         }
       });
     });
@@ -104,8 +108,8 @@ export class ScreenshotPreview extends Component {
     for (const answer of answersObj) {
       let commonWordScore = 0;
       let uncommonWordScore = 0;
-      sanitizeWords(answer).split(' ').forEach((v) => {
-        const word = v.toLowerCase();
+      answer.toLowerCase().split(' ').forEach((w) => {
+        const word = sanitizeWords(w);
         if (word in wordsHash) {
           if (COMMON_WORDS.has(word)) {
             commonWordScore += wordsHash[word];
@@ -124,7 +128,9 @@ export class ScreenshotPreview extends Component {
     return Object.entries(results).sort((a, b) => b[1].totalScore - a[1].totalScore);
 
     function sanitizeWords(word) {
-      return word;
+      return word
+        .replace(/( |(\w\W))$/, '')
+        .replace(/\W/g, '');
       // return word.replace(/[^A-Za-z0-9 ]/g, '');
     }
   }
