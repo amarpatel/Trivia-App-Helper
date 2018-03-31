@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import Button from 'material-ui/Button';
+import Card, { CardContent } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import { withStyles } from 'material-ui/styles/index';
 import AccessAlarmIcon from 'material-ui-icons/AccessAlarm';
+import Info from './Info';
 
 const styles = theme => ({
   card: {
@@ -35,7 +35,7 @@ const styles = theme => ({
     color: '#304FFE',
   },
   icon: {
-    height: '0.75em',
+    height: '16px',
     margin: 0,
     display: 'inline-block',
     fill: 'rgba(0, 0, 0, 0.54)',
@@ -45,7 +45,15 @@ const styles = theme => ({
 
   timingContainer: {
     margin: 0,
-    padding: '0 16px 15px',
+    padding: '0 16px 8px !important',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+
+  question: {
+    textAlign: 'center',
+    padding: '0 0 8px 0',
   },
 
   table: {
@@ -64,7 +72,7 @@ export function Preview(props) {
       <Grid item xs={12}>
         <Card className={classes.card}>
           <CardContent>
-            <Typography variant="headline" component="h2">
+            <Typography variant="headline" className={classes.question} component="h2">
               {props.question}
             </Typography>
             <Table className={classes.table}>
@@ -78,8 +86,9 @@ export function Preview(props) {
               </TableHead>
               <TableBody>
                 {
-                  props.answers.map(([answer, { uncommonWordScore, commonWordScore, totalScore }], i) => {
-                    const emphasisStyle = i === 0 ? classes.emphasis : '';
+                  props.answers.map(([answer, scores]) => {
+                    const { uncommonWordScore, commonWordScore, totalScore, selected } = scores;
+                    const emphasisStyle = selected ? classes.emphasis : '';
                     return (
                       <TableRow key={answer}>
                         <TableCell className={emphasisStyle}>{answer}</TableCell>
@@ -93,11 +102,12 @@ export function Preview(props) {
               </TableBody>
             </Table>
           </CardContent>
-          <CardContent align="right" className={classes.timingContainer}>
+          <CardContent className={classes.timingContainer}>
             <Typography variant="caption" gutterBottom component="h2">
               <AccessAlarmIcon className={classes.icon} />
-              {(props.timing / 1000).toFixed(2)} seconds
+              {(props.timing / 1000).toFixed(2)}s
             </Typography>
+            <Info />
           </CardContent>
         </Card>
       </Grid>
