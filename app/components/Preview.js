@@ -63,10 +63,6 @@ export function Preview(props) {
     <div>
       <Grid item xs={12}>
         <Card className={classes.card}>
-          <CardMedia
-            className={classes.media}
-            src={props.image}
-          />
           <CardContent>
             <Typography variant="headline" component="h2">
               {props.question}
