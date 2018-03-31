@@ -16,7 +16,7 @@
 
 ## Requirements
 - iPhone X (Only model currently supported)
-- macOS
+- macOS (Needed for QuickTime Screen Recording)
 - API key for [Google Vision API](https://cloud.google.com/vision/) 
 - API key for [Bing Web Search API](https://azure.microsoft.com/en-us/services/cognitive-services/bing-web-search-api/)
 
