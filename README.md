@@ -1,4 +1,4 @@
-# Gets Answers for HQ and Cash SHow
+# Gets Answers for HQ and Cash Show
 
 ## Don't Use This!  It breaks TOS
 #### This is just for fun
