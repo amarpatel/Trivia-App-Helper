@@ -1,7 +1,6 @@
 # Gets Answers for HQ and Cash Show
 
-## Don't Use This!  It breaks TOS
-#### This is just for fun
+## Don't Use This!  It breaks TOS.  This is just for fun
 
 ## Examples (YouTube)
 - [HQ (Savage Question)](https://youtu.be/U1btuWZV-aM)
