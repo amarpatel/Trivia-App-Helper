@@ -3,8 +3,10 @@
 ## Don't Use This!  It breaks TOS
 #### This is just for fun
 
-[HQ Example (YouTube)](https://youtu.be/U1btuWZV-aM)
-[Cash Show Example (YouTube)](https://youtu.be/4qlcyVTgT7c)
+## Examples (YouTube)
+- [HQ (Savage Question)](https://youtu.be/U1btuWZV-aM)
+
+- [Cash Show (Last Round)](https://youtu.be/4qlcyVTgT7c)
 
 ## Implementation
 
